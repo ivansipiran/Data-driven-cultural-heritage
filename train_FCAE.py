@@ -135,7 +135,7 @@ vis_test = visdom.Visdom(port = opt.vis_port_test , env= opt.vis_env + " TEST")
 
 
 # initialize variables
-dir_name, logname  = save_paths(opt.model, "train_FCAE", "ShaeNetDataset", "FCAE_model")
+dir_name, logname  = save_paths(opt.model, "train_FCAE", "ShapeNetDataset", "FCAE_model")
 
 rec_loss_train = AverageValueMeter()
 rec_loss_test = AverageValueMeter()
@@ -145,7 +145,7 @@ best_loss = 20000
 n_models = 10
 
 class_choice = {'Airplane': 0, 'Bag': 1, 'Cap': 2, 'Car': 3, 'Chair': 4, 'Guitar': 6, 'Lamp': 8, 'Laptop': 9, 'Motorbike': 10, 'Mug': 11, 'Pistol': 12, 'Skateboard': 14, 'Table': 15}
-dataset_dir = './data/shapenetcore_part'
+dataset_dir = './data/shapenet_part'
 dataset_train = ShapeNetDataset(root_dir=dataset_dir, class_choice=class_choice, npoints=2048, split='train')
 dataloader_train = DataLoader(dataset_train, batch_size=opt.batchSize, shuffle=True, num_workers=int(opt.workers))
 dataset_test = ShapeNetDataset(root_dir=dataset_dir, class_choice=class_choice, npoints=2048, split='test')

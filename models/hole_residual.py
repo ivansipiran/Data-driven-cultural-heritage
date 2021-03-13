@@ -257,13 +257,13 @@ class MSNmodel(nn.Module):
         idx = farthest_point_sample(MPC[:, 0:3, :].transpose(1,2).contiguous(), self.num_points, RAN=False)
         SPC = index_points(MPC.transpose(1,2).contiguous(), idx)
         SPC = SPC.transpose(1,2).contiguous()
-        #SPC2 = SPC.clone().detach() 
+        SPC2 = SPC.clone().detach() 
 
 
         shift = self.residual(SPC)
         
-        #flags = SPC[:,3,:]
-        #flags2 = flags.clone().detach()
+        flags = SPC[:,3,:]
+        flags2 = flags.clone().detach()
 
         SPC = SPC[:, 0:3, :]
         
@@ -278,7 +278,7 @@ class MSNmodel(nn.Module):
         emd2 = torch.sqrt(dist2).mean(1)
         loss2 = emd2.mean()
         
-        return out_hole, out_complete, loss1, loss2, exp_loss
+        return out_hole, out_complete, loss1, loss2, exp_loss, SPC2[:,0:3,:].transpose(2,1).contiguous(), flags2
         
 
 class NormalModel(nn.Module):

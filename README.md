@@ -1,5 +1,5 @@
-# Refinement for Point Cloud Completion
-Pytorch code for the paper "Refinement of Predicted Missing Parts Enhance Point Cloud Completion".
+# Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis
+Pytorch code for the paper "Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis".
 
 ![](figs/principal.png)
 
@@ -20,7 +20,7 @@ pip install torch==1.3.1 torchvision
 pip install -r requirements.txt
 ~~~
 
-## Training
+## ShapeNet Experiments
 ### 1. Download the ShapeNet dataset
 ~~~
 cd data
@@ -65,3 +65,49 @@ Download the pretrained models from [here](https://drive.google.com/drive/folder
     ~~~
 
 Optionally, you can also save the results of the compared methods by setting the option --outputFolder in the evaluation scripts.
+
+## Repair of Cultural Heritage Objects
+### 1. The dataset
+Download the CH dataset from [here](https://drive.google.com/file/d/1PEqrrz_FAKFEFb8GT6HNcjpGvi7JsOdq/view?usp=sharing). Locate the folder "datasetCH" inside the folder "data" of this repository.
+
+### 2. Training
+To train the model, execute:
+
+~~~
+python train_MBD_Cultural_Heritage.py --model=MBD_CH
+~~~
+
+The final trained model will be stored under the folder "log".
+
+### 3. Application on repair of cultural heritage objects
+
+Download the pre-trained neural network from [here](https://drive.google.com/file/d/1-Pbl3RUprMbaEbpQxvRWjxtV4wJobo0b/view?usp=sharing). Also download the scanned 3D models with imperfections from [here](https://drive.google.com/file/d/1VQI0pLsznhn62QL_aZxJqlBRnu33h0o6/view?usp=sharing). Install [Meshlab](https://www.meshlab.net/) and be sure to include the folder with the binary of "meshlabserver" in the system path. Meshlabserver is used by our application to perform the Poisson reconstruction of the point clouds.
+
+Execute the repair tool with the next command:
+
+~~~
+python completePipeline.py --object=<name_object> --inputFolder=<folder with scanned objects> --model=<pretrained model> --outputFolder=<where the result will be> --save --ratio=<threshold for keeping geometry from reconstruction>
+~~~
+
+An example of execution:
+
+~~~
+python completePipeline.py --object=0001 --inputFolder=data/scanned/ --model=pretrained/MBD_CH_pretrained --outputFolder=finalResult/ --save --ratio=0.3
+~~~
+
+The output of this script will be in the "finalResult/" folder. The script also shows the reconstruction using a 3D viewer. 
+
+<img src="figs/test1.png" alt="Test"
+	height="200" />
+<img src="figs/test2.png" alt="Test"
+	height="200" />
+<img src="figs/test.gif" alt="Test"
+	height="200" />
+
+
+<img src="figs/test36_1.png" alt="Test"
+	height="220" />
+<img src="figs/test36_2.png" alt="Test"
+	height="220" />
+<img src="figs/test36.gif" alt="Test"
+	height="220" />

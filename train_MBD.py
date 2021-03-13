@@ -58,7 +58,7 @@ n_models = 10
 
 # Shapenet part dataloader
 class_choice = {'Airplane': 0, 'Bag': 1, 'Cap': 2, 'Car': 3, 'Chair': 4, 'Guitar': 6, 'Lamp': 8, 'Laptop': 9, 'Motorbike': 10, 'Mug': 11, 'Pistol': 12, 'Skateboard': 14, 'Table': 15}
-dataset_dir = './data/shapenetcore_part'
+dataset_dir = './data/shapenet_part'
 
 dataset_train = ShapeNetDataset(root_dir=dataset_dir, class_choice=class_choice, npoints=2048, split='train')
 dataloader_train = DataLoader(dataset_train, batch_size=opt.batchSize, shuffle=True, num_workers=int(opt.workers))
@@ -129,7 +129,7 @@ for epoch in range(opt.nepoch):
         in_hole = in_hole.contiguous().float().to(device)
         in_complete = in_complete.contiguous().float().to(device)
         
-        output, output2, rec_loss1, rec_loss2, exp_loss = network(in_partial, in_hole, in_complete, 0.005, 50)
+        output, output2, rec_loss1, rec_loss2, exp_loss, _, _ = network(in_partial, in_hole, in_complete, 0.005, 50)
         rec_g_loss = rec_loss1 + rec_loss2 + exp_loss
         
         rec_g_loss.backward()
@@ -172,7 +172,7 @@ for epoch in range(opt.nepoch):
                 in_hole = in_hole.contiguous().float().to(device)
                 in_complete = in_complete.contiguous().float().to(device)
                 
-                output, output2, rec_loss1, rec_loss2, exp_loss = network(in_partial, in_hole, in_complete, 0.005, 50)
+                output, output2, rec_loss1, rec_loss2, exp_loss, _, _ = network(in_partial, in_hole, in_complete, 0.005, 50)
                 rec_g_loss = rec_loss1 + rec_loss2 + exp_loss
                 
                 # values to plot and save

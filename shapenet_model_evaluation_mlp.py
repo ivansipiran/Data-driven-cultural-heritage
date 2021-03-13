@@ -101,7 +101,7 @@ for categorie in categories:
     chamfer_error = AverageValueMeter()
 
 
-    dataset_dir = './data/shapenetcore_part'
+    dataset_dir = './data/shapenet_part'
 
     dataset_test = ShapeNetDataset(root_dir=dataset_dir, class_choice={categorie}, npoints=2048, split='test', hole_size=opt.holeSize/100)
     dataloader_test = DataLoader(dataset_test, batch_size=opt.batchSize, shuffle=True, num_workers=0)

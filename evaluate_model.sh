@@ -14,6 +14,6 @@ mkdir Pistol
 mkdir Skateboard
 mkdir Table
 
-cd ../..
+cd ../
 
 python  shapenet_model_evaluation.py --model=pretrained/MBD_SHAPENET/ --outputFolder=Results/

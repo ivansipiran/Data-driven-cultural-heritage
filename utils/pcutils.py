@@ -28,6 +28,22 @@ def normalize(points, unit_ball = False):
 
     return normalized_points
 
+def normalize2(points, unit_ball = False):
+    normalized_points = origin_mass_center(points)
+    normalized_points = points
+    l2_norm = LA.norm(normalized_points,axis=1)
+    max_distance = max(l2_norm)
+
+    if unit_ball:
+        scale = max_distance
+        normalized_points = normalized_points/(max_distance)
+    else:
+        scale = 2 * max_distance
+        normalized_points = normalized_points/(2 * max_distance)
+
+    return normalized_points, scale
+    #return normalized_points
+
 def augmented_normalize(points, unit_ball = False, rand_shift = 0):
     normalized_points = origin_mass_center(points)
     l2_norm = LA.norm(normalized_points,axis=1)

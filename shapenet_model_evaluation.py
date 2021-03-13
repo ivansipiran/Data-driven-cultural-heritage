@@ -96,7 +96,7 @@ for categorie in categories:
     chamfer_error = AverageValueMeter()
 
 
-    dataset_dir = './data/shapenetcore_part'
+    dataset_dir = './data/shapenet_part'
 
     dataset_test = ShapeNetDataset(root_dir=dataset_dir, class_choice={categorie}, npoints=2048, split='test', hole_size=opt.holeSize/100)
     dataloader_test = DataLoader(dataset_test, batch_size=opt.batchSize, shuffle=True, num_workers=0)
@@ -116,7 +116,7 @@ for categorie in categories:
             in_hole = in_hole.contiguous().float().to(device)
             in_complete = in_complete.contiguous().float().to(device)
             
-            output, output2, rec_loss1, rec_loss2, exp_loss = network(in_partial, in_hole, in_complete, 0.005, 50)
+            output, output2, rec_loss1, rec_loss2, exp_loss,_,_ = network(in_partial, in_hole, in_complete, 0.005, 50)
             
             dist = chamfer_dist(output2, in_complete)
             chamfer_error.update(dist.item()*10000)
