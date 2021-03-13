@@ -2,7 +2,8 @@
 Pytorch code for the paper "Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis".
 
 <img src="figs/main.gif" alt="Test"
-	height="300" />
+	height="500" />
+	
 Given a partial input, our method predicts and refine the missing part to obtain an integrated completed point cloud.
 
 ## Setup
