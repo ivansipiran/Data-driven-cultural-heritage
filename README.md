@@ -1,5 +1,5 @@
 # Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis
-Pytorch code for the paper "Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis".
+Pytorch code for the paper "Data-driven Restoration of Cultural Heritage Objects with Point Cloud Analysis" by Ivan Sipiran, Alexis Mendoza, Alexander Apaza and Cristian Lopez.
 
 <img src="figs/main.gif" alt="Test"
 	height="500" />
